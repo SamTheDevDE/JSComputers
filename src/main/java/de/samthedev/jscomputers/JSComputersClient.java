@@ -1,5 +1,8 @@
 package de.samthedev.jscomputers;
 
+import de.samthedev.jscomputers.screen.ComputerMenu;
+import de.samthedev.jscomputers.screen.ComputerScreen;
+import de.samthedev.jscomputers.screen.ModMenuTypes;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -18,8 +21,23 @@ public class JSComputersClient {
     }
 
     @SubscribeEvent
-    static void onClientSetup(FMLClientSetupEvent event) {
+    public static void onClientSetup(FMLClientSetupEvent event) {
         JSComputers.LOGGER.info("HELLO FROM CLIENT SETUP");
         JSComputers.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+        
+        // Register screen factory using reflection to bypass visibility
+        event.enqueueWork(() -> {
+            try {
+                var method = net.minecraft.client.gui.screens.MenuScreens.class.getDeclaredMethod(
+                    "register", 
+                    net.minecraft.world.inventory.MenuType.class, 
+                    net.minecraft.client.gui.screens.MenuScreens.ScreenConstructor.class
+                );
+                method.setAccessible(true);
+                method.invoke(null, ModMenuTypes.COMPUTER_MENU.get(), (net.minecraft.client.gui.screens.MenuScreens.ScreenConstructor<ComputerMenu, ComputerScreen>) ComputerScreen::new);
+            } catch (Exception e) {
+                JSComputers.LOGGER.error("Failed to register ComputerScreen", e);
+            }
+        });
     }
 }
