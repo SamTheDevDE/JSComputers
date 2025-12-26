@@ -1,5 +1,6 @@
 package de.samthedev.jscomputers;
 
+import de.samthedev.jscomputers.block.ComputerBlock;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -39,15 +40,18 @@ public class JSComputers {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    public static final DeferredBlock<Block> ComputerBlock = BLOCKS.registerSimpleBlock("computer", BlockBehaviour.Properties.of().mapColor(MapColor.STONE));
-    public static final DeferredItem<BlockItem> ComputerItem = ITEMS.registerSimpleBlockItem("computer", ComputerBlock);
+    public static final DeferredBlock<Block> COMPUTER_BLOCK = BLOCKS.register("computer",
+            () -> new ComputerBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
+
+    public static final DeferredItem<Item> COMPUTER_ITEM = ITEMS.register("computer",
+            () -> new BlockItem(COMPUTER_BLOCK.get(), new Item.Properties()));
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("jscomputers", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.jscomputers"))
             .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> ComputerItem.get().getDefaultInstance())
+            .icon(() -> COMPUTER_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.accept(ComputerItem.get());
+                output.accept(COMPUTER_ITEM.get());
             }).build());
 
     public JSComputers(IEventBus modEventBus, ModContainer modContainer) {
