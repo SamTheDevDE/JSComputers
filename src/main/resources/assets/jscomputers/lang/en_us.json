@@ -1,0 +1,13 @@
+{
+  "itemGroup.jscomputers": "Example Mod Tab",
+  "block.jscomputers.example_block": "Example Block",
+  "item.jscomputers.example_item": "Example Item",
+
+  "jscomputers.configuration.title": "JSComputers Configs",
+  "jscomputers.configuration.section.jscomputers.common.toml": "JSComputers Configs",
+  "jscomputers.configuration.section.jscomputers.common.toml.title": "JSComputers Configs",
+  "jscomputers.configuration.items": "Item List",
+  "jscomputers.configuration.logDirtBlock": "Log Dirt Block",
+  "jscomputers.configuration.magicNumberIntroduction": "Magic Number Text",
+  "jscomputers.configuration.magicNumber": "Magic Number"
+}
