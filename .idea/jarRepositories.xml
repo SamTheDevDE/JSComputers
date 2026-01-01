@@ -26,5 +26,30 @@
       <option name="name" value="NeoForged Releases" />
       <option name="url" value="https://maven.neoforged.net/releases/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="MavenRepo" />
+      <option name="name" value="MavenRepo" />
+      <option name="url" value="https://repo.maven.apache.org/maven2/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="Latvian Mods" />
+      <option name="name" value="Latvian Mods" />
+      <option name="url" value="https://maven.latvian.dev/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="Shedaniel" />
+      <option name="name" value="Shedaniel" />
+      <option name="url" value="https://maven.shedaniel.me/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="Latvian Maven" />
+      <option name="name" value="Latvian Maven" />
+      <option name="url" value="https://maven.latvian.dev/releases" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="GraalVM Maven Repository" />
+      <option name="name" value="GraalVM Maven Repository" />
+      <option name="url" value="https://www.graalvm.org/maven/" />
+    </remote-repository>
   </component>
 </project>

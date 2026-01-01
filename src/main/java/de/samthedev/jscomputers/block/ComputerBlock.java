@@ -45,8 +45,8 @@ public class ComputerBlock extends BaseEntityBlock {
     protected InteractionResult useWithoutItem(BlockState pState, net.minecraft.world.level.Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
-            if(entity instanceof de.samthedev.jscomputers.block.entity.ComputerBlockEntity) {
-                pPlayer.openMenu((de.samthedev.jscomputers.block.entity.ComputerBlockEntity)entity);
+            if(entity instanceof de.samthedev.jscomputers.block.entity.ComputerBlockEntity computerEntity) {
+                pPlayer.openMenu(computerEntity, pPos);
             }
         }
         return InteractionResult.SUCCESS;

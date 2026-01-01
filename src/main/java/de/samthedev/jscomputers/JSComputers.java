@@ -2,6 +2,7 @@ package de.samthedev.jscomputers;
 
 import de.samthedev.jscomputers.block.ComputerBlock;
 import de.samthedev.jscomputers.block.entity.ModBlockEntities;
+import de.samthedev.jscomputers.network.ModNetworking;
 import de.samthedev.jscomputers.screen.ModMenuTypes;
 import org.slf4j.Logger;
 
@@ -61,6 +62,9 @@ public class JSComputers {
         CREATIVE_MODE_TABS.register(modEventBus);
         ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
         ModMenuTypes.MENUS.register(modEventBus);
+        
+        // Register networking
+        ModNetworking.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
 

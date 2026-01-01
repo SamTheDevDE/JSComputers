@@ -19,6 +19,11 @@ group = mod_group_id
 
 repositories {
     // Add here additional repositories if required by some of the dependencies below.
+    mavenCentral()
+    maven {
+        url = 'https://maven.latvian.dev/releases'
+        name = 'Latvian Maven'
+    }
 }
 
 base {
@@ -36,7 +41,7 @@ neoForge {
         mappingsVersion = project.parchment_mappings_version
         minecraftVersion = project.parchment_minecraft_version
     }
-
+    
     // This line is optional. Access Transformers are automatically detected
     // accessTransformers = project.files('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -87,6 +92,9 @@ neoForge {
             // You can set various levels here.
             // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
             logLevel = org.slf4j.event.Level.DEBUG
+            
+            // Fix module resolution issues with GraalJS
+            systemProperty 'polyglot.engine.WarnInterpreterOnly', 'false'
         }
     }
 
@@ -109,9 +117,30 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 // "optional", meaning it will not be pulled by dependents of this mod.
 configurations {
     runtimeClasspath.extendsFrom localRuntime
+    jarJar.extendsFrom implementation
 }
 
 dependencies {
+    // GraalVM JavaScript - High-performance JavaScript engine
+    // Using jarJar to bundle dependencies into the mod JAR
+    // Core GraalVM dependencies
+    jarJar(implementation('org.graalvm.polyglot:polyglot:24.1.1'))
+    jarJar(implementation('org.graalvm.polyglot:js:24.1.1'))
+    jarJar(implementation('org.graalvm.truffle:truffle-api:24.1.1'))
+    jarJar(implementation('org.graalvm.truffle:truffle-runtime:24.1.1'))
+    jarJar(implementation('org.graalvm.truffle:truffle-compiler:24.1.1'))
+    jarJar(implementation('org.graalvm.sdk:nativeimage:24.1.1'))
+    jarJar(implementation('org.graalvm.sdk:word:24.1.1'))
+    jarJar(implementation('org.graalvm.sdk:collections:24.1.1'))
+    jarJar(implementation('org.graalvm.sdk:jniutils:24.1.1'))
+    jarJar(implementation('org.graalvm.sdk:nativebridge:24.1.1'))
+    jarJar(implementation('org.graalvm.regex:regex:24.1.1'))
+    // JavaScript language implementations
+    jarJar(implementation('org.graalvm.js:js:24.1.1'))
+    jarJar(implementation('org.graalvm.js:js-community:24.1.1'))
+    jarJar(implementation('org.graalvm.js:js-language:24.1.1'))
+    jarJar(implementation('org.graalvm.shadowed:icu4j:24.1.1'))
+    
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"

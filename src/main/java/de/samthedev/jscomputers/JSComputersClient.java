@@ -1,5 +1,7 @@
 package de.samthedev.jscomputers;
 
+import de.samthedev.jscomputers.block.entity.ModBlockEntities;
+import de.samthedev.jscomputers.client.ComputerBlockEntityRenderer;
 import de.samthedev.jscomputers.screen.ComputerMenu;
 import de.samthedev.jscomputers.screen.ComputerScreen;
 import de.samthedev.jscomputers.screen.ModMenuTypes;
@@ -10,6 +12,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
@@ -39,5 +42,10 @@ public class JSComputersClient {
                 JSComputers.LOGGER.error("Failed to register ComputerScreen", e);
             }
         });
+    }
+
+    @SubscribeEvent
+    public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(ModBlockEntities.COMPUTER_BLOCK_ENTITY.get(), ComputerBlockEntityRenderer::new);
     }
 }

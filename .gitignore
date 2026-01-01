@@ -28,3 +28,6 @@ replay_pid*
 /.gradle/
 /.idea/
 /.vscode/
+/bin/
+/libs/
+/.eclipse/
